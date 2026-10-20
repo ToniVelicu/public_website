@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonia Velicu</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --card: #131313;
+    --border: rgba(255,255,255,0.1);
+    --accent: #e8e0d0;
+    --accent2: #c8b89a;
+    --muted: #888;
+    --bg: #0a0a0a;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Georgia', serif; background: var(--bg); color: #e0ddd8; font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.92); backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 2.5rem; height: 52px;
+  }
+  .nav-name { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); font-family: sans-serif; font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cv {
+    font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--bg); background: var(--accent2); padding: 7px 14px; border-radius: 3px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cv:hover { background: var(--accent); }
+
+  section { padding: 6rem 0; }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
+
+  #hero {
+    min-height: 100vh; display: flex; align-items: center; border-bottom: 0.5px solid var(--border); padding-top: 52px;
+  }
+  .hero-inner {
+    padding: 0 2.5rem; max-width: 960px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; gap: 3.5rem; justify-content: space-between;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-photo {
+    width: 200px; height: 200px; border-radius: 6px; overflow: hidden;
+    flex-shrink: 0; border: 0.5px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-roles { font-family: sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.8rem; display: flex; gap: 0.6em; flex-wrap: wrap; align-items: center; }
+  .hero-roles .dot-sep { color: var(--muted); }
+  h1 { font-size: clamp(2.6rem, 7vw, 5.2rem); font-weight: 400; color: #f0ece4; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 520px; font-family: sans-serif; line-height: 1.6; }
+  .hero-links { display: flex; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
+  .hero-link { font-family: sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 0.5px solid var(--accent2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .hero-link:hover { color: #fff; border-color: #fff; }
+  .hero-link.cv-btn {
+    color: var(--bg); background: var(--accent2); border: none; padding: 8px 16px; border-radius: 3px;
+  }
+  .hero-link.cv-btn:hover { background: var(--accent); color: var(--bg); }
+
+  .section-label { font-family: sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent2); margin-bottom: 3rem; display: block; }
+  h2 { font-size: 2rem; font-weight: 400; color: #f0ece4; margin-bottom: 1.5rem; }
+
+  #about { border-bottom: 0.5px solid var(--border); }
+  .about-text { font-size: 1.05rem; color: #b8b4ae; max-width: 660px; line-height: 1.8; }
+  .about-text p + p { margin-top: 1.2rem; }
+
+  #research { border-bottom: 0.5px solid var(--border); background: var(--card); }
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+  .research-theme { border: 0.5px solid var(--border); padding: 1.5rem; border-radius: 4px; }
+  .research-theme h3 { font-size: 0.95rem; color: var(--accent); font-weight: 400; margin-bottom: 0.5rem; font-family: sans-serif; letter-spacing: 0.05em; }
+  .research-theme p { font-size: 0.875rem; color: var(--muted); font-family: sans-serif; line-height: 1.6; }
+
+  .pub-section-title { font-family: sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 2.5rem 0 1rem; border-top: 0.5px solid var(--border); padding-top: 1.5rem; }
+  .pub-item { padding: 1rem 0; border-bottom: 0.5px solid var(--border); display: flex; gap: 1.5rem; }
+  .pub-year { font-family: sans-serif; font-size: 12px; color: var(--accent2); min-width: 36px; padding-top: 2px; }
+  .pub-content { flex: 1; }
+  .pub-title { font-size: 0.95rem; color: #ddd; line-height: 1.5; }
+  .pub-title a { color: #ddd; text-decoration: none; border-bottom: 0.5px solid transparent; transition: border-color 0.2s; }
+  .pub-title a:hover { border-color: var(--accent2); }
+  .pub-meta { font-family: sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .pub-tag { display: inline-block; font-family: sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border: 0.5px solid var(--border); color: var(--muted); margin-left: 8px; border-radius: 2px; }
+  .pub-tag.review { color: var(--accent2); border-color: var(--accent2); }
+
+  /* TIMELINE */
+  #background { border-bottom: 0.5px solid var(--border); }
+  #background .container { max-width: 960px; }
+
+  .tl-wrap { position: relative; padding: 2rem 0 3rem; }
+  .tl-wrap::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 0.5px; background: var(--border); transform: translateX(-50%);
+  }
+  .tl-item {
+    display: flex; justify-content: flex-end; padding-right: calc(50% + 2.5rem);
+    margin-bottom: 3rem; position: relative;
+    opacity: 0; transform: translateX(-30px); transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .tl-item.right {
+    justify-content: flex-start; padding-right: 0; padding-left: calc(50% + 2.5rem);
+    transform: translateX(30px);
+  }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-dot {
+    position: absolute; left: 50%; top: 10px; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent2); transform: translateX(-50%); z-index: 2; transition: transform 0.3s ease;
+  }
+  .tl-item.visible .tl-dot { transform: translateX(-50%) scale(1.3); }
+  .tl-card { max-width: 360px; width: 100%; }
+  .tl-tag {
+    font-family: sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 2px; border: 0.5px solid; display: inline-block; margin-bottom: 6px;
+  }
+  .tl-tag.position { color: #8ab4c8; border-color: #8ab4c8; }
+  .tl-tag.education { color: var(--accent2); border-color: var(--accent2); }
+  .tl-tag.award { color: #a8c8a0; border-color: #a8c8a0; }
+  .tl-date { font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px; }
+  .tl-role { font-size: 1rem; color: #e0ddd8; margin-bottom: 2px; }
+  .tl-place { font-family: sans-serif; font-size: 13px; color: var(--muted); }
+  .tl-item .tl-card { text-align: right; }
+  .tl-item.right .tl-card { text-align: left; }
+
+  #teaching { border-bottom: 0.5px solid var(--border); background: var(--card); }
+  .teaching-item { display: flex; gap: 1.5rem; padding: 0.8rem 0; border-bottom: 0.5px solid var(--border); }
+  .teaching-year { font-family: sans-serif; font-size: 12px; color: var(--accent2); min-width: 70px; }
+  .teaching-title { font-size: 0.9rem; color: #ccc; flex: 1; }
+  .teaching-inst { font-family: sans-serif; font-size: 12px; color: var(--muted); }
+
+  #conferences { border-bottom: 0.5px solid var(--border); }
+  .conf-item { padding: 0.9rem 0; border-bottom: 0.5px solid var(--border); display: flex; gap: 1.5rem; }
+  .conf-year { font-family: sans-serif; font-size: 12px; color: var(--accent2); min-width: 36px; }
+  .conf-content { flex: 1; }
+  .conf-title { font-size: 0.9rem; color: #ccc; }
+  .conf-event { font-family: sans-serif; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .scicomm-block { background: var(--card); border: 0.5px solid var(--border); padding: 2rem; border-radius: 4px; margin-top: 2rem; }
+  .scicomm-handle { font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .scicomm-handle a { color: var(--accent); text-decoration: none; }
+  .scicomm-desc { font-family: sans-serif; font-size: 0.9rem; color: var(--muted); }
+
+  #contact { background: var(--card); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .contact-item { padding: 1.2rem; border: 0.5px solid var(--border); border-radius: 4px; }
+  .contact-label { font-family: sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .contact-value { font-size: 0.9rem; color: var(--accent); }
+  .contact-value a { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid transparent; transition: border-color 0.2s; }
+  .contact-value a:hover { border-color: var(--accent2); }
+  .cv-download-block {
+    margin-top: 1.5rem; text-align: center;
+  }
+  .cv-download-btn {
+    display: inline-block; font-family: sans-serif; font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--bg); background: var(--accent2);
+    padding: 12px 28px; border-radius: 3px; text-decoration: none; transition: background 0.2s;
+  }
+  .cv-download-btn:hover { background: var(--accent); }
+
+  footer { text-align: center; padding: 2rem; font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); border-top: 0.5px solid var(--border); }
+
+  @media (max-width: 700px) {
+    .hero-inner { flex-direction: column-reverse; text-align: center; gap: 2rem; }
+    .hero-sub { max-width: 100%; }
+    .hero-links { justify-content: center; }
+    .hero-roles { justify-content: center; }
+    .hero-photo { width: 140px; height: 140px; }
+    .tl-wrap::before { left: 1rem; }
+    .tl-item, .tl-item.right { padding-left: 3rem; padding-right: 0; justify-content: flex-start; transform: translateX(-20px); }
+    .tl-dot { left: 1rem; }
+    .tl-item .tl-card, .tl-item.right .tl-card { text-align: left; }
+    .research-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    .hero-inner { padding: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Antonia Velicu</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#conferences">Conferences</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="cv_antonia_velicu.pdf" class="nav-cv" download>CV</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-roles"><span>Sociologist</span><span class="dot-sep">·</span><span>Postdoctoral Researcher</span></p>
+      <h1>Antonia<br>Velicu</h1>
+      <p class="hero-sub">I study how academic reward systems shape researcher behavior — and who gets left behind. My work sits at the intersection of science studies, research integrity, and gender inequality in academia.</p>
+      <div class="hero-links">
+        <a href="#research" class="hero-link">Research</a>
+        <a href="mailto:antonia.velicu@uzh.ch" class="hero-link">Contact</a>
+        <a href="https://www.instagram.com/sociologyunpacked" class="hero-link">@sociologyunpacked</a>
+        <a href="cv_antonia_velicu.pdf" class="hero-link cv-btn" download>Download CV</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="profile.jpg" alt="Antonia Velicu">
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <span class="section-label">About</span>
+    <div class="about-text">
+      <p>I am a post-doctoral researcher at the Soziologisches Institut, University of Zurich, where I work on academic reward systems, questionable research practices, publication strategies, and gender inequalities in science.</p>
+      <p>My research draws primarily on the Zurich Survey of Academics (ZSoA), a linked survey-bibliometric dataset of around 6,000 researchers across the German-speaking academic world (DACH region). I combine quantitative methods — factorial surveys, regression discontinuity, implicit association tests — with a structural perspective on what pushes researchers to bend or break the rules.</p>
+      <p>I received my doctorate from the University of Zurich in 2024 (<em>magna cum laude</em>), with a thesis on intersectionality and misconduct in science. Before that, I studied sociology and gender studies in Zurich and Vienna.</p>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="container">
+    <span class="section-label">Research</span>
+    <h2>What I work on</h2>
+    <div class="research-grid">
+      <div class="research-theme">
+        <h3>Academic reward systems</h3>
+        <p>How do publication norms and incentive structures shape researcher behavior? Do playing by the rules actually pay off?</p>
+      </div>
+      <div class="research-theme">
+        <h3>Research integrity & misconduct</h3>
+        <p>What drives questionable research practices, and how do scientists justify them? Evidence from large-scale surveys in the DACH region.</p>
+      </div>
+      <div class="research-theme">
+        <h3>Gender inequality in science</h3>
+        <p>From the gender productivity gap to homogamous partnerships in academia — structural explanations for who gets ahead and who doesn't.</p>
+      </div>
+      <div class="research-theme">
+        <h3>Publication bias</h3>
+        <p>Do scientists systematically favor statistically significant results? Experimental and quasi-experimental evidence from peer review.</p>
+      </div>
+    </div>
+
+    <p class="pub-section-title">Peer-reviewed articles</p>
+    <div class="pub-item">
+      <span class="pub-year">2026</span>
+      <div class="pub-content">
+        <p class="pub-title"><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344105">Does love in the ivory tower fix the leaky pipeline? How academia's homogamous relationships shape careers</a></p>
+        <p class="pub-meta">Velicu, Fauvelais, Jerke, Rauhut, Lemaitre &middot; <em>PLOS One</em></p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year">2026</span>
+      <div class="pub-content">
+        <p class="pub-title"><a href="https://doi.org/10.1016/j.ssresearch.2025.103292">Why Social Norms Matter in Science: Determinants of Misconduct in German-speaking Europe</a></p>
+        <p class="pub-meta">Oberhauser, Velicu, Rauhut &middot; <em>Social Science Research</em></p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year">2025</span>
+      <div class="pub-content">
+        <p class="pub-title"><a href="https://doi.org/10.1007/s11192-025-05357-4">Are questionable research practices considered a successful career strategy? A novel implementation of the implicit association test</a></p>
+        <p class="pub-meta">Velicu, Rathmann, Winter, Rauhut &middot; <em>Scientometrics</em></p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year">2025</span>
+      <div class="pub-content">
+        <p class="pub-title"><a href="https://doi.org/10.1371/journal.pone.0305666">Publication Bias in the Social Sciences since 1959: Application of a Regression Discontinuity Framework</a></p>
+        <p class="pub-meta">Jerke, Velicu, Winter, Rauhut &middot; <em>PLOS One</em></p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year">2022</span>
+      <div class="pub-content">
+        <p class="pub-title"><a href="https://doi.org/10.1177/1525822X20985629">Handle with Care: Implementation of the List Experiment and Crosswise Model in a Large-Scale Survey on Academic Misconduct</a></p>
+        <p class="pub-meta">Jerke, Johann, Thomas, Rauhut, Velicu &middot; <em>Field Methods</em></p>
+      </div>
+    </div>
+
+    <p class="pub-section-title">Under review</p>
+    <div class="pub-item">
+      <span class="pub-year"></span>
+      <div class="pub-content">
+        <p class="pub-title">Does Playing by the Rules Pay Off? The Effect of Publication Strategies and Questionable Research Practices on Publication Outcome <span class="pub-tag review">under review</span></p>
+        <p class="pub-meta">Velicu, Pap</p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year"></span>
+      <div class="pub-content">
+        <p class="pub-title">Scientists systematically favor statistically significant results during peer review tasks <span class="pub-tag review">under review</span></p>
+        <p class="pub-meta">Jerke, Velicu, Winter, Rauhut</p>
+      </div>
+    </div>
+    <div class="pub-item">
+      <span class="pub-year"></span>
+      <div class="pub-content">
+        <p class="pub-title">The Effect of Intersectional Discrimination Experiences on the Scientists' Life <span class="pub-tag review">under review</span></p>
+        <p class="pub-meta">Velicu, Jerke, Rauhut</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="container">
+    <span class="section-label">Background</span>
+    <div class="tl-wrap">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag position">Position</span>
+          <p class="tl-date">2026 &ndash; present</p>
+          <p class="tl-role">Interim representative, mid-level faculty</p>
+          <p class="tl-place">Department of Sociology, UZH</p>
+        </div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag position">Position</span>
+          <p class="tl-date">2024 &ndash; present</p>
+          <p class="tl-role">Post-doctoral researcher</p>
+          <p class="tl-place">University of Zurich, Department of Sociology</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag award">Award</span>
+          <p class="tl-date">2025</p>
+          <p class="tl-role">Teaching prize</p>
+          <p class="tl-place">Department of Sociology, University of Zurich</p>
+        </div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag award">Award</span>
+          <p class="tl-date">2025</p>
+          <p class="tl-role">Shortlisted, Junior Professorship in empirical science research</p>
+          <p class="tl-place">IZWT, University of Wuppertal</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag position">Position</span>
+          <p class="tl-date">Apr &ndash; Aug 2025</p>
+          <p class="tl-role">Lecturer</p>
+          <p class="tl-place">University of Konstanz, Cluster of Excellence: The Politics of Inequality</p>
+        </div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag education">Education</span>
+          <p class="tl-date">2020 &ndash; 2024</p>
+          <p class="tl-role">Dr. phil. in Sociology, <em>magna cum laude</em></p>
+          <p class="tl-place">University of Zurich &middot; <em>All That Glitters Is Not Gold: Intersectionality and Misconduct in Science</em></p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag position">Position</span>
+          <p class="tl-date">Feb &ndash; Mar 2023</p>
+          <p class="tl-role">Visiting researcher</p>
+          <p class="tl-place">EPFL, Global Health Institute, Lab of Prof. Dr. Bruno Lemaitre</p>
+        </div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag award">Award</span>
+          <p class="tl-date">2022</p>
+          <p class="tl-role">Poster award, silver</p>
+          <p class="tl-place">Analytical Sociology, Venice Seminar</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag position">Position</span>
+          <p class="tl-date">2019 &ndash; 2024</p>
+          <p class="tl-role">Research assistant</p>
+          <p class="tl-place">University of Zurich, Chair of Prof. Dr. Heiko Rauhut</p>
+        </div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag education">Education</span>
+          <p class="tl-date">2017 &ndash; 2020</p>
+          <p class="tl-role">MA in Sociology, minor in Gender Studies</p>
+          <p class="tl-place">University of Zurich</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-tag education">Education</span>
+          <p class="tl-date">2014 &ndash; 2017</p>
+          <p class="tl-role">BA in Sociology, minor in Law</p>
+          <p class="tl-place">University of Vienna</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="container">
+    <span class="section-label">Teaching</span>
+    <div class="teaching-item">
+      <span class="teaching-year">Spring 2026</span>
+      <span class="teaching-title">Sociology goes viral: analyzing structural inequalities</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Spring 2025</span>
+      <span class="teaching-title">Bachelor's thesis in sociology</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Spring 2025</span>
+      <span class="teaching-title">Sociology of deviant behavior</span>
+      <span class="teaching-inst">Uni Konstanz</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Fall 2024</span>
+      <span class="teaching-title">Sociology goes viral: analyzing structural inequalities</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Spring 2024</span>
+      <span class="teaching-title">Changing norms in love and sexuality</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Fall 2023</span>
+      <span class="teaching-title">Research seminar: social norms and cooperation</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Fall 2022</span>
+      <span class="teaching-title">Deviance and social control</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Fall 2021</span>
+      <span class="teaching-title">What the F. is science: empirical science studies</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+    <div class="teaching-item">
+      <span class="teaching-year">Spring 2021</span>
+      <span class="teaching-title">Introduction to science studies</span>
+      <span class="teaching-inst">UZH</span>
+    </div>
+  </div>
+</section>
+
+<section id="conferences">
+  <div class="container">
+    <span class="section-label">Conferences & Science Communication</span>
+    <div class="conf-item">
+      <span class="conf-year">2025</span>
+      <div class="conf-content">
+        <p class="conf-title">Does Playing by the Rules Pay Off?</p>
+        <p class="conf-event">Venice Seminar: Analytical Sociology, Italy</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2025</span>
+      <div class="conf-content">
+        <p class="conf-title">Exploring the Gender Productivity Gap</p>
+        <p class="conf-event">ISA Forum, Rabat, Morocco</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2024</span>
+      <div class="conf-content">
+        <p class="conf-title">Exploring the Gender Productivity Gap</p>
+        <p class="conf-event">European Consortium for Sociological Research, Barcelona</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2023</span>
+      <div class="conf-content">
+        <p class="conf-title">Finding Love in the Ivory Tower and Plugging the Leaky Pipeline?</p>
+        <p class="conf-event">Venice Seminar: Analytical Sociology &middot; poster</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2022</span>
+      <div class="conf-content">
+        <p class="conf-title">A Biased Mind: Significance as a Publication Booster</p>
+        <p class="conf-event">Venice Seminar: Analytical Sociology &middot; poster award silver</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2021</span>
+      <div class="conf-content">
+        <p class="conf-title">A Biased Mind: Significance as a Publication Booster</p>
+        <p class="conf-event">American Sociological Association, 116th Annual Meeting</p>
+      </div>
+    </div>
+    <div class="conf-item">
+      <span class="conf-year">2020</span>
+      <div class="conf-content">
+        <p class="conf-title">Gender Bias in Scientific Authorship? Evidence from Factorial Survey Experiments</p>
+        <p class="conf-event">EASST/4S Conference</p>
+      </div>
+    </div>
+    <div class="scicomm-block">
+      <p class="section-label" style="margin-bottom:1rem;">Science communication</p>
+      <p class="scicomm-handle"><a href="https://www.instagram.com/sociologyunpacked" target="_blank">@sociologyunpacked</a></p>
+      <p class="scicomm-desc">Public sociology on Instagram &mdash; making research on academic life, gender, and science accessible to a broader audience. Launched 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Contact</span>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <p class="contact-label">Email</p>
+        <p class="contact-value"><a href="mailto:antonia.velicu@uzh.ch">antonia.velicu@uzh.ch</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-label">Institution</p>
+        <p class="contact-value">Soziologisches Institut, University of Zurich</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-label">Instagram</p>
+        <p class="contact-value"><a href="https://www.instagram.com/sociologyunpacked" target="_blank">@sociologyunpacked</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-label">Address</p>
+        <p class="contact-value">Dufourstrasse 189, 8008 Zurich, Switzerland</p>
+      </div>
+    </div>
+    <div class="cv-download-block">
+      <a href="cv_antonia_velicu.pdf" class="cv-download-btn" download>Download full CV (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Antonia Velicu &middot; University of Zurich
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.tl-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(item => observer.observe(item));
+</script>
+
+</body>
+</html>
