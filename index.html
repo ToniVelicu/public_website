@@ -46,16 +46,16 @@
     display: flex; align-items: center; gap: 3.5rem; justify-content: flex-start;
   }
   .hero-photo {
-    width: 180px; height: 180px; border-radius: 6px; overflow: hidden;
+    width: 220px; height: 290px; border-radius: 6px; overflow: hidden;
     flex-shrink: 0; border: 0.5px solid var(--border);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
   .hero-text { flex: 1; min-width: 0; }
 
   .hero-roles { font-family: sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.8rem; display: flex; gap: 0.6em; flex-wrap: wrap; align-items: center; }
   .hero-roles .dot-sep { color: var(--muted); }
-  h1 { font-size: clamp(2.6rem, 7vw, 5.2rem); font-weight: 400; color: #f0ece4; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 400; color: #f0ece4; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.02em; white-space: nowrap; }
   .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 520px; font-family: sans-serif; line-height: 1.6; }
   .hero-links { display: flex; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
   .hero-link { font-family: sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 0.5px solid var(--accent2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
@@ -164,6 +164,42 @@
 
   footer { text-align: center; padding: 2rem; font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); border-top: 0.5px solid var(--border); }
 
+  /* CV Modal */
+  .cv-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  .cv-modal-overlay.open { display: flex; }
+  .cv-modal {
+    background: #1a1a1a; border: 0.5px solid var(--border); border-radius: 6px;
+    width: 90vw; max-width: 860px; height: 88vh;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  }
+  .cv-modal-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 1.5rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0;
+  }
+  .cv-modal-title { font-family: sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .cv-modal-actions { display: flex; gap: 1rem; align-items: center; }
+  .cv-modal-download {
+    font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--bg); background: var(--accent2); padding: 6px 14px; border-radius: 3px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .cv-modal-download:hover { background: var(--accent); }
+  .cv-modal-close {
+    background: none; border: 0.5px solid var(--border); color: var(--muted);
+    font-size: 18px; width: 32px; height: 32px; border-radius: 3px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: color 0.2s, border-color 0.2s;
+    line-height: 1;
+  }
+  .cv-modal-close:hover { color: var(--accent); border-color: var(--accent); }
+  .cv-modal-body { flex: 1; overflow-y: auto; background: #333; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem; gap: 1rem; }
+  .cv-modal-body canvas { max-width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: block; }
+  .cv-modal-loading { font-family: sans-serif; font-size: 12px; color: var(--muted); padding: 3rem; }
+
   @media (max-width: 700px) {
     .hero-inner { flex-direction: column; text-align: center; gap: 2rem; }
     .hero-sub { max-width: 100%; }
@@ -193,7 +229,7 @@
     <li><a href="#teaching">Teaching</a></li>
     <li><a href="#conferences">Conferences</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="cv_antonia_velicu.pdf" class="nav-cv" download>CV</a></li>
+    <li><a href="#" class="nav-cv" onclick="openCV(); return false;">CV</a></li>
   </ul>
 </nav>
 
@@ -204,13 +240,13 @@
     </div>
     <div class="hero-text">
       <p class="hero-roles"><span>Sociologist</span><span class="dot-sep">·</span><span>Postdoctoral Researcher</span></p>
-      <h1>Antonia<br>Velicu</h1>
+      <h1>Antonia Velicu</h1>
       <p class="hero-sub">I study how social norms shape behavior and inequality — in science, in love, and in between. My work spans academic reward systems, research integrity, and changing norms in relationships and family life.</p>
       <div class="hero-links">
         <a href="#research" class="hero-link">Research</a>
         <a href="mailto:antonia.velicu@uzh.ch" class="hero-link">Contact</a>
         <a href="https://www.instagram.com/sociologyunpacked" class="hero-link">@sociologyunpacked</a>
-        <a href="cv_antonia_velicu.pdf" class="hero-link cv-btn" download>Download CV</a>
+        <a href="#" class="hero-link cv-btn" onclick="openCV(); return false;">View CV</a>
       </div>
     </div>
   </div>
@@ -568,25 +604,89 @@
       </div>
     </div>
     <div class="cv-download-block">
-      <a href="cv_antonia_velicu.pdf" class="cv-download-btn" download>Download full CV (PDF)</a>
+      <a href="#" class="cv-download-btn" onclick="openCV(); return false;">View CV</a>
     </div>
   </div>
 </section>
+
+<!-- CV Modal -->
+<div class="cv-modal-overlay" id="cvModal">
+  <div class="cv-modal">
+    <div class="cv-modal-bar">
+      <span class="cv-modal-title">Curriculum Vitae &mdash; Antonia Velicu</span>
+      <div class="cv-modal-actions">
+        <a href="cv_antonia_velicu.pdf" class="cv-modal-download" download>Download PDF</a>
+        <button class="cv-modal-close" onclick="closeCV()" aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <div class="cv-modal-body" id="cvPdfContainer">
+      <p class="cv-modal-loading">Loading CV…</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   &copy; 2026 Antonia Velicu &middot; University of Zurich
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
+  // Timeline scroll animation
   const items = document.querySelectorAll('.tl-item');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
   items.forEach(item => observer.observe(item));
+
+  // PDF.js setup
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  let pdfLoaded = false;
+
+  async function renderPDF() {
+    if (pdfLoaded) return;
+    pdfLoaded = true;
+    const container = document.getElementById('cvPdfContainer');
+    container.innerHTML = '<p class="cv-modal-loading">Loading CV…</p>';
+    try {
+      const pdf = await pdfjsLib.getDocument('cv_antonia_velicu.pdf').promise;
+      container.innerHTML = '';
+      const containerWidth = container.clientWidth - 32; // padding
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 1 });
+        const scale = containerWidth / viewport.width;
+        const scaled = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        canvas.width = scaled.width;
+        canvas.height = scaled.height;
+        canvas.style.width = '100%';
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport: scaled }).promise;
+        container.appendChild(canvas);
+      }
+    } catch (e) {
+      container.innerHTML = '<p class="cv-modal-loading">Could not load PDF. <a href="cv_antonia_velicu.pdf" style="color:var(--accent2)" download>Download instead</a>.</p>';
+    }
+  }
+
+  function openCV() {
+    document.getElementById('cvModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    renderPDF();
+  }
+  function closeCV() {
+    document.getElementById('cvModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('cvModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCV();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCV();
+  });
 </script>
 
 </body>
