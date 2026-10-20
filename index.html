@@ -43,15 +43,15 @@
   }
   .hero-inner {
     padding: 0 2.5rem; max-width: 960px; margin: 0 auto; width: 100%;
-    display: flex; align-items: center; gap: 3.5rem; justify-content: space-between;
+    display: flex; align-items: center; gap: 3.5rem; justify-content: flex-start;
   }
-  .hero-text { flex: 1; min-width: 0; }
   .hero-photo {
-    width: 200px; height: 200px; border-radius: 6px; overflow: hidden;
+    width: 180px; height: 180px; border-radius: 6px; overflow: hidden;
     flex-shrink: 0; border: 0.5px solid var(--border);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-text { flex: 1; min-width: 0; }
 
   .hero-roles { font-family: sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.8rem; display: flex; gap: 0.6em; flex-wrap: wrap; align-items: center; }
   .hero-roles .dot-sep { color: var(--muted); }
@@ -165,7 +165,7 @@
   footer { text-align: center; padding: 2rem; font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); border-top: 0.5px solid var(--border); }
 
   @media (max-width: 700px) {
-    .hero-inner { flex-direction: column-reverse; text-align: center; gap: 2rem; }
+    .hero-inner { flex-direction: column; text-align: center; gap: 2rem; }
     .hero-sub { max-width: 100%; }
     .hero-links { justify-content: center; }
     .hero-roles { justify-content: center; }
@@ -199,19 +199,19 @@
 
 <section id="hero">
   <div class="hero-inner">
+    <div class="hero-photo">
+      <img src="profile.jpg" alt="Antonia Velicu">
+    </div>
     <div class="hero-text">
       <p class="hero-roles"><span>Sociologist</span><span class="dot-sep">·</span><span>Postdoctoral Researcher</span></p>
       <h1>Antonia<br>Velicu</h1>
-      <p class="hero-sub">I study how academic reward systems shape researcher behavior — and who gets left behind. My work sits at the intersection of science studies, research integrity, and gender inequality in academia.</p>
+      <p class="hero-sub">I study how social norms shape behavior and inequality — in science, in love, and in between. My work spans academic reward systems, research integrity, and changing norms in relationships and family life.</p>
       <div class="hero-links">
         <a href="#research" class="hero-link">Research</a>
         <a href="mailto:antonia.velicu@uzh.ch" class="hero-link">Contact</a>
         <a href="https://www.instagram.com/sociologyunpacked" class="hero-link">@sociologyunpacked</a>
         <a href="cv_antonia_velicu.pdf" class="hero-link cv-btn" download>Download CV</a>
       </div>
-    </div>
-    <div class="hero-photo">
-      <img src="profile.jpg" alt="Antonia Velicu">
     </div>
   </div>
 </section>
@@ -220,9 +220,9 @@
   <div class="container">
     <span class="section-label">About</span>
     <div class="about-text">
-      <p>I am a post-doctoral researcher at the Soziologisches Institut, University of Zurich, where I work on academic reward systems, questionable research practices, publication strategies, and gender inequalities in science.</p>
-      <p>My research draws primarily on the Zurich Survey of Academics (ZSoA), a linked survey-bibliometric dataset of around 6,000 researchers across the German-speaking academic world (DACH region). I combine quantitative methods — factorial surveys, regression discontinuity, implicit association tests — with a structural perspective on what pushes researchers to bend or break the rules.</p>
-      <p>I received my doctorate from the University of Zurich in 2024 (<em>magna cum laude</em>), with a thesis on intersectionality and misconduct in science. Before that, I studied sociology and gender studies in Zurich and Vienna.</p>
+      <p>I am a post-doctoral researcher at the Soziologisches Institut, University of Zurich. My work is held together by a single question: what happens when people deviate from norms — and what does that reveal about the norms themselves?</p>
+      <p>In my research, I explore this through two lenses. The first is science: how academic reward systems shape researcher behavior, what drives questionable research practices, and who gets left behind by the rules of the game. The second is intimate life: how norms around love, partnership, and family are shifting — who challenges them, how, and at what cost. Both strands draw on the same sociological instinct — that deviance tells us more about a social order than conformity ever could.</p>
+      <p>Empirically, I work primarily with the Zurich Survey of Academics (ZSoA), combining large-scale surveys, survey experiments, bibliometric methods, and qualitative approaches informed by grounded theory. I received my doctorate from the University of Zurich in 2024 (<em>magna cum laude</em>), with a thesis on intersectionality and misconduct in science.</p>
     </div>
   </div>
 </section>
@@ -538,6 +538,10 @@
       <p class="section-label" style="margin-bottom:1rem;">Science communication</p>
       <p class="scicomm-handle"><a href="https://www.instagram.com/sociologyunpacked" target="_blank">@sociologyunpacked</a></p>
       <p class="scicomm-desc">Public sociology on Instagram &mdash; making research on academic life, gender, and science accessible to a broader audience. Launched 2026.</p>
+      <p style="margin-top:1.2rem; font-family:sans-serif; font-size:0.875rem; color:var(--muted);">
+        🎙 <a href="https://open.spotify.com/episode/5YfacbDlnG9hwjK8u3y6H7" target="_blank" style="color:var(--accent2); text-decoration:none; border-bottom:0.5px solid var(--accent2);">Is monogamy still the norm?</a>
+        &mdash; <em>Tell Me More About You</em> podcast. On open relationships, polyamory, jealousy, and what any couple can learn from non-monogamy.
+      </p>
     </div>
   </div>
 </section>
@@ -559,8 +563,8 @@
         <p class="contact-value"><a href="https://www.instagram.com/sociologyunpacked" target="_blank">@sociologyunpacked</a></p>
       </div>
       <div class="contact-item">
-        <p class="contact-label">Address</p>
-        <p class="contact-value">Dufourstrasse 189, 8008 Zurich, Switzerland</p>
+        <p class="contact-label">Location</p>
+        <p class="contact-value">Zurich, Switzerland</p>
       </div>
     </div>
     <div class="cv-download-block">
